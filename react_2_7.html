@@ -1,0 +1,112 @@
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<h1>Hi, there!</h1>
+<div id="react-root"></div>
+<script type="text/babel">
+    class Parent extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                counter: 0
+            }
+        }
+
+        render() {
+            return <Counter tickHandler={this.handleCounterTick} resetHandler={this.handleReset} state={this.state}/>;
+        }
+
+        handleCounterTick() {
+            console.log('tick')
+            this.setState({counter: this.state.counter + 1})
+        }
+
+        handleReset() {
+            console.log('reset')
+            this.setState({counter: 0})
+        }
+    }
+
+    function ResetButton(props) {
+        return <button onClick={props.resetFunction}>Reset</button>
+    }
+
+    class Counter extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = props.state
+            this.interval = 0;
+            this.tickHandler = props.tickHandler
+            this.resetHandler = props.resetHandler
+            this.updateCounter = this.updateCounter.bind(this)
+            this.reset = this.reset.bind(this)
+            //console.log('constructor(): props:', props);
+        }
+
+        getDerivedStateFromProps(props, state) {
+            //console.log('getDerivedStateFromProps(): props:', props, ', state:', state);
+            //console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+            return null;
+        }
+
+        shouldComponentUpdate(nextProps, nextState) {
+            //console.log('getDerivedStateFromProps(): nextProps:', nextProps, ', nextState:', nextState);
+            //console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+            return true;
+        }
+
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+            //console.log('getDerivedStateFromProps(): prevProps:', prevProps, ', prevState:', prevState);
+            //console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+        }
+
+        updateCounter() {
+            this.tickHandler()
+        }
+
+        componentDidMount() {
+            //console.log('componentDidMount(): this.props:', this.props, ', this.state:', this.state);
+            this.interval = setInterval(this.updateCounter, 1000)
+        }
+
+        componentWillUnmount() {
+            //console.log('componentWillUnmount(): this.props:', this.props, ', this.state:', this.state);
+            console.log(this.state.counter)
+            clearInterval(this.interval)
+        }
+
+        render() {
+            //console.log('render(): this.props:', this.props, ', this.state:', this.state);
+            console.log(this.state.counter)
+            return <ResetButton resetFunction={this.reset}/>
+        }
+
+        reset() {
+            this.resetHandler()
+        }
+
+        static getDerivedStateFromError(error) {
+            //console.log('render(): error:', error, ', info:', info);
+            return {};
+        }
+
+        componentDidCatch(error, info) {
+            //console.log('render(): error:', error, ', info:', info);
+        }
+
+
+    }
+
+    ReactDOM.render(
+        <Parent/>
+        ,
+        document.getElementById("react-root")
+    );
+</script>
+</body>
+</html>
