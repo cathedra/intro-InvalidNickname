@@ -1,0 +1,70 @@
+<html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+<h1>Hi, there!</h1>
+<div id="react-root"></div>
+<script type="text/babel">
+    class LifecycleExampleComponent extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {};
+            this.interval = 0;
+            console.log('constructor(): props:', props);
+        }
+
+        getDerivedStateFromProps(props, state) {
+            console.log('getDerivedStateFromProps(): props:', props, ', state:', state);
+            console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+            return null;
+        }
+
+        shouldComponentUpdate(nextProps,) {
+            console.log('getDerivedStateFromProps(): nextProps:', nextProps, ', nextState:', nextState);
+            console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+            return true;
+        }
+
+        getSnapshotBeforeUpdate(prevProps, prevState) {
+            console.log('getDerivedStateFromProps(): prevProps:', prevProps, ', prevState:', prevState);
+            console.log('getDerivedStateFromProps(): this.props:', this.props, ', this.state:', this.state);
+        }
+
+        componentDidMount() {
+            console.log('componentDidMount(): this.props:', this.props, ', this.state:', this.state);
+            this.interval = setInterval(() => console.log("tick"), 1000)
+        }
+
+        componentWillUnmount() {
+            console.log('componentWillUnmount(): this.props:', this.props, ', this.state:', this.state);
+            clearInterval(this.interval)
+        }
+
+        render() {
+            console.log('render(): this.props:', this.props, ', this.state:', this.state);
+            return <div>LifecycleExampleComponent</div>
+        }
+
+        static getDerivedStateFromError(error) {
+            console.log('render(): error:', error, ', info:', info);
+            return {};
+        }
+
+        componentDidCatch(error, info) {
+            console.log('render(): error:', error, ', info:', info);
+        }
+
+
+    }
+
+    ReactDOM.render(
+        <LifecycleExampleComponent/>,
+        document.getElementById("react-root")
+    );
+</script>
+</body>
+</html>
