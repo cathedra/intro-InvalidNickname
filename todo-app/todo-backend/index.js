@@ -2,7 +2,9 @@ const db = require("./models/")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
-const PORT = process.env.PORT || 3000
+const cors = require("cors")
+app.use(cors())
+const PORT = process.env.PORT || 3
 app.use(bodyParser.json())
 
 function success(res, payload) {
@@ -16,7 +18,7 @@ app.get("/todos", async (req, res, next) => {
         return success(res, todos)
     } catch (err) {
         console.log('failed to get /todos')
-        next({ status: 400, message: "failed to get todos" })
+        next({status: 400, message: "failed to get todos"})
     }
 })
 
@@ -26,7 +28,7 @@ app.post("/todos", async (req, res, next) => {
         const todo = await db.Todo.create(req.body)
         return success(res, todo)
     } catch (err) {
-        next({ status: 400, message: "failed to create todo" })
+        next({status: 400, message: "failed to create todo"})
     }
 })
 
@@ -38,7 +40,7 @@ app.put("/todos/:id", async (req, res, next) => {
         })
         return success(res, todo)
     } catch (err) {
-        next({ status: 400, message: "failed to update todo" })
+        next({status: 400, message: "failed to update todo"})
     }
 })
 
@@ -47,7 +49,7 @@ app.delete("/todos/:id", async (req, res, next) => {
         await db.Todo.findByIdAndRemove(req.params.id)
         return success(res, "todo deleted!")
     } catch (err) {
-        next({ status: 400, message: "failed to delete todo" })
+        next({status: 400, message: "failed to delete todo"})
     }
 })
 
