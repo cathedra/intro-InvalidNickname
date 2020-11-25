@@ -10,6 +10,10 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    date: {
+        type: String,
+        default: ""
+    }
 })
 
 const todoModel = mongoose.model("Todo", todoSchema)
