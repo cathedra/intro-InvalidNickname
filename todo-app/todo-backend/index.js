@@ -60,6 +60,9 @@ app.use((err, req, res, next) => {
     })
 })
 
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
+
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })
