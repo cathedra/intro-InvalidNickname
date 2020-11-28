@@ -10,17 +10,11 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/todos/test/all", controller.allAccess);
+    app.get("/todos", [authJwt.verifyToken], controller.getTodos)
 
-    app.get("/todos/test/user", [authJwt.verifyToken], controller.userBoard);
+    app.post("/todos", [authJwt.verifyToken], controller.postTodo)
 
-    app.get("/todos/test/mod",
-        [authJwt.verifyToken, authJwt.isModerator],
-        controller.moderatorBoard
-    );
+    app.put("/todos/:id", [authJwt.verifyToken], controller.editTodo)
 
-    app.get("/todos/test/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        controller.adminBoard
-    );
+    app.delete("/todos/:id", [authJwt.verifyToken], controller.deleteTodo)
 };
