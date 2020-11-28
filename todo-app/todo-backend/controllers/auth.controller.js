@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
                             res.status(500).send({message: err});
                             return;
                         }
-                        res.send({message: "User was registered successfully!"});
+                        res.send({message: "Пользователь зарегистрирован!"});
                     });
                 }
             );
@@ -48,7 +48,7 @@ exports.signup = (req, res) => {
                         res.status(500).send({message: err});
                         return;
                     }
-                    res.send({message: "User was registered successfully!"});
+                    res.send({message: "Пользователь зарегистрирован!"});
                 });
             });
         }
@@ -77,7 +77,7 @@ exports.signin = (req, res) => {
                 });
             }
             let token = jwt.sign({id: user.id}, config.secret, {
-                expiresIn: 86400 // 24 hours
+                expiresIn: 86400
             });
             let authorities = [];
             for (let i = 0; i < user.roles.length; i++) {

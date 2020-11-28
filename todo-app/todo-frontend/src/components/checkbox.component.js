@@ -3,7 +3,7 @@ import React from "react"
 import {faCheck, faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const CheckBox = (props) => {
+const Checkbox = (props) => {
     if (props.checked) {
         return <FontAwesomeIcon icon={faCheck}/>
     } else {
@@ -11,4 +11,4 @@ const CheckBox = (props) => {
     }
 }
 
-export default CheckBox
+export default Checkbox

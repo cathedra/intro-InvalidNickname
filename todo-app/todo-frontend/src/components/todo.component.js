@@ -1,7 +1,7 @@
 import React from "react"
-import CheckBox from "./CheckBox";
+import Checkbox from "./checkbox.component";
 
-function ToDo(props) {
+function Todo(props) {
     const {todo, i, updateTodo, deleteTodo, editing, toggleEditing, editTodo} = props;
 
     let className = "row"
@@ -17,7 +17,7 @@ function ToDo(props) {
         onDoubleClick={e => toggleEditing(e, todo._id)}
         className={className}
     >
-        <td onClick={e => updateTodo(e, todo._id)}><CheckBox checked={todo.completed}/></td>
+        <td onClick={e => updateTodo(e, todo._id)}><Checkbox checked={todo.completed}/></td>
         <td>
             <input
                 id="todo-edit"
@@ -39,10 +39,10 @@ function ToDo(props) {
         onDoubleClick={e => toggleEditing(e, todo._id)}
         className={className}
     >
-        <td onClick={e => updateTodo(e, todo._id)}><CheckBox checked={todo.completed}/></td>
+        <td onClick={e => updateTodo(e, todo._id)}><Checkbox checked={todo.completed}/></td>
         <td className={textClass}>{todo.task}{todo.date !== "" ? " до " + todo.date : ""}</td>
         <td onClick={e => deleteTodo(e, todo._id)}>✕</td>
     </tr>)
 }
 
-export default ToDo
+export default Todo
